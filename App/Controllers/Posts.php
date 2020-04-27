@@ -9,12 +9,13 @@
 namespace App\Controllers;
 
 use Core\Controller;
+use Core\View;
 
 class Posts extends Controller
 {
     public function indexAction(): void
     {
-        echo 'Hello from index action Post controller';
+        View::renderTemplate('Posts/index.html');
     }
 
     public function addNewAction(): void

@@ -32,12 +32,9 @@ abstract class Controller
 
     protected function before()
     {
-        echo " (before() from base class) ";
-        return false;
     }
 
     protected function after()
     {
-        echo " (after() from base class) ";
     }
 }
