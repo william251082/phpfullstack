@@ -9,14 +9,33 @@
 class Router
 {
     protected $routes = [];
+    protected $params = [];
 
-    public function add($routes, $params): void
+    public function add($route, $params): void
     {
-        $this->routes = $params;
+        $this->routes[$route] = $params;
+    }
+
+    public function match($url): bool
+    {
+        foreach ($this->routes as $route => $params) {
+            if ($url == $route) {
+                $this->params = $params;
+
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public function getRoutes(): array
     {
         return $this->routes;
+    }
+
+    public function getParams(): array
+    {
+        return $this->params;
     }
 }
