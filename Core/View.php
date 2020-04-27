@@ -9,6 +9,8 @@
 namespace Core;
 
 
+use Exception;
+
 class View
 {
     public static function render($view, $args = [])
@@ -21,7 +23,7 @@ class View
             require $file;
         }
         else {
-            echo "$file not found";
+            throw new Exception("$file not found");
         }
     }
 

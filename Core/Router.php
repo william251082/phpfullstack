@@ -8,6 +8,8 @@
 
 namespace Core;
 
+use Exception;
+
 class Router
 {
     protected $routes = [];
@@ -64,16 +66,13 @@ class Router
 
                 if (preg_match('/action/i', $action) == 0) {
                     $controller_object->$action();
-                }
-                else {
-                    throw new Exception(
-                        "Method $action in controller $controller can not be called directly - remove the Action to call  this method"
-                    );
+                } else {
+                    //echo "Controller class $controller not found";
+                    throw new Exception("Controller class $controller not found");
                 }
             }
-        }
-        else {
-            echo "No route matched";
+        } else {
+            throw new Exception('No route matched.');
         }
     }
 
