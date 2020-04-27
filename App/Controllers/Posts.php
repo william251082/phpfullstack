@@ -12,17 +12,17 @@ use Core\Controller;
 
 class Posts extends Controller
 {
-    public function index(): void
+    public function indexAction(): void
     {
         echo 'Hello from index action Post controller';
     }
 
-    public function addNew(): void
+    public function addNewAction(): void
     {
         echo 'Hello from the addNew action Post controller';
     }
 
-    public function edit()
+    public function editAction()
     {
         echo 'Hello from the edit action in the Posts controller!';
         echo '<p>Route parameters: <pre>' .
