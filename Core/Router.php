@@ -6,6 +6,8 @@
  * Time: 9:12
  */
 
+namespace Core;
+
 class Router
 {
     protected $routes = [];
@@ -48,9 +50,12 @@ class Router
 
     public function dispatch($url): void
     {
+        $url = $this->removeQueryStringVariables($url);
+
         if ($this->match($url)) {
             $controller = $this->params['controller'];
             $controller = $this->convertToStudlyCaps($controller);
+            $controller = "App\Controllers\\$controller";
 
             if (class_exists($controller)) {
                 $controller_object = new $controller();
@@ -68,6 +73,22 @@ class Router
         else {
             echo "No route matched";
         }
+    }
+
+    private function removeQueryStringVariables($url): string
+    {
+        if ($url != '') {
+            $parts = explode('&', $url, 2);
+
+            if (strpos($parts[0], '=') === false) {
+                $url = $parts[0];
+            }
+            else {
+                $url = '';
+            }
+        }
+
+        return $url;
     }
 
     /**
