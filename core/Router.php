@@ -46,6 +46,58 @@ class Router
         return false;
     }
 
+    public function dispatch($url): void
+    {
+        if ($this->match($url)) {
+            $controller = $this->params['controller'];
+            $controller = $this->convertToStudlyCaps($controller);
+
+            if (class_exists($controller)) {
+                $controller_object = new $controller();
+                $action = $this->params['action'];
+                $action = $this->convertToCamelCase($action);
+
+                if (is_callable([$controller_object, $action])) {
+                    $controller_object->$action();
+                }
+                else {
+                    echo "Method $action (in controller $controller) not found";
+                }
+            }
+        }
+        else {
+            echo "No route matched";
+        }
+    }
+
+    /**
+     * Convert the string with hyphens to StudlyCaps,
+     * e.g. post-authors => PostAuthors
+     *
+     * @param string $string The string to convert
+     *
+     * @return string
+     */
+    private function convertToStudlyCaps($string): string
+    {
+        return str_replace(
+        ' ', '', ucwords(str_replace('-', ' ', $string))
+        );
+    }
+
+    /**
+     * Convert the string with hyphens to camelCase,
+     * e.g. add-new => addNew
+     *
+     * @param string $string The string to convert
+     *
+     * @return string
+     */
+    private function convertToCamelCase($string): string
+    {
+        return lcfirst($this->convertToStudlyCaps($string));
+    }
+
     public function getRoutes(): array
     {
         return $this->routes;
