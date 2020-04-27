@@ -8,7 +8,9 @@
 
 namespace App\Controllers;
 
-class Home
+use Core\Controller;
+
+class Home extends Controller
 {
     public function index()
     {

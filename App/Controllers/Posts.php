@@ -6,7 +6,11 @@
  * Time: 9:54
  */
 
-class Posts
+namespace App\Controllers;
+
+use Core\Controller;
+
+class Posts extends Controller
 {
     public function index(): void
     {
@@ -16,5 +20,12 @@ class Posts
     public function addNew(): void
     {
         echo 'Hello from the addNew action Post controller';
+    }
+
+    public function edit()
+    {
+        echo 'Hello from the edit action in the Posts controller!';
+        echo '<p>Route parameters: <pre>' .
+            htmlspecialchars(print_r($this->route_params, true)) . '</pre><p>';
     }
 }
