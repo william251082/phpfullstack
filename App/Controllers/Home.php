@@ -9,24 +9,20 @@
 namespace App\Controllers;
 
 use Core\Controller;
+use Core\View;
 
 class Home extends Controller
 {
     public function indexAction()
     {
-        echo 'Hello from the index action in the Home controller';
-        echo '<p>Query string parameters: <pre>' .
-            htmlspecialchars(print_r($_GET, true)) . '</pre></p>';
+        View::render('Home/index.php');
     }
 
     protected function before()
     {
-        echo " (before from home class) ";
-        return false;
     }
 
     protected function after()
     {
-        echo " (after from home class) ";
     }
 }
